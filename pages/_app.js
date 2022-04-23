@@ -1,5 +1,5 @@
 import {Layout} from "./common";
-// import { wrapper } from '../redux/store.ts'
+import { wrapper } from '../redux/store.ts'
 import Head from 'next/head'
 const App = ({ Component, pageProps}) => {
   return (<>
@@ -18,8 +18,8 @@ const App = ({ Component, pageProps}) => {
   )
 }
 
-export default App
-// export default wrapper.withRedux(App)
+// export default App
+export default wrapper.withRedux(App)
 
 
 

@@ -1,28 +1,35 @@
-import axios from "axios";
-import React, { useState } from "react";
+
+import {useDispatch} from "react-redux"
+import React, {useState} from "react";
+import {userActions} from "../../redux/reducers/userReducer.ts"
 import tableStyles from "../common/styles/table.module.css";
 export default function Login() {
-  const proxy = "http://localhost:5000";
-  const [inputs, setInputs] = useState({});
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    setInputs({ ...inputs, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post(proxy+'/api/user/login', inputs)
-    .then(res => {
-        const user = res.data;
-        console.log('data posted.');
+  
+  const [user, setUser] = useState({
+    userid: '',
+    password: '',
+});
+const dispatch = useDispatch();
+const handleChange = e => {
+    e.preventDefault()
+    const {name, value} = e.target;
+    setUser({
+        ...user,
+        [name]: value
     })
-    .catch(err => alert(err));
-  };
+}
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form action="" onSubmit={e => {
+        e.preventDefault()
+        alert(' 진행 1: 회원가입 클릭 ');
+        dispatch(userActions.loginRequest(user))
+        setUser({
+            userid: '',
+            password: '',
+        })
+    }
+  }>
       <table className={tableStyles.table}>
         <thead>
           <tr>
@@ -37,7 +44,7 @@ export default function Login() {
               <label htmlFor="">ID</label>
             </td>
             <td>
-              <input type="text" name="username" onChange={handleChange} />
+              <input type="text" name="userid" onChange={handleChange} />
             </td>
           </tr>
           <tr>

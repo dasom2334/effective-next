@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects'
-import {} from './userSaga.ts'
+import {watchJoin, watchLogin, watchLogout, watchDelUser} from './userSaga.ts'
 
 export default function* rootSaga() {
-    yield all({})
+    yield all([watchJoin(), watchLogin(), watchLogout(), watchDelUser()])
 }
