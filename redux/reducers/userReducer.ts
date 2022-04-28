@@ -70,6 +70,11 @@ const userSlice = createSlice({
             state.data = payload;
             state.loading = false;
         },
+        getUsersRequest(state: UserState, {payload}){ 
+            state.data = [...state.data, payload]
+            state.loading = false;
+            console.log(state.data);
+        },
     }
 })
 const { reducer, actions } = userSlice

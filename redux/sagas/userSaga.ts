@@ -81,9 +81,9 @@ function* logout(user : UserLogoutType) {
     const response: UserLogoutType = yield logoutApi(user.payload)
     yield put(userActions.logoutSuccess(response))
 }
-function* delUser(user : DelUserType) {
+function* delUser(user : UserDelType) {
     alert('진행 3: saga내부 delUser 성공  ')
-    const response: DelUserType = yield delUserApi(user.payload)
+    const response: UserDelType = yield delUserApi(user.payload)
     yield put(userActions.delUserSuccess(response))
 }
 export function* watchJoin() {
