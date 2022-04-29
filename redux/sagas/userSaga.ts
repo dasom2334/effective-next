@@ -82,9 +82,15 @@ function* logout(user : UserLogoutType) {
     yield put(userActions.logoutSuccess(response))
 }
 function* delUser(user : UserDelType) {
-    alert('진행 3: saga내부 delUser 성공  ')
-    const response: UserDelType = yield delUserApi(user.payload)
-    yield put(userActions.delUserSuccess(response))
+    try {
+        alert('진행 3: saga내부 delUser 성공  ')
+        const response: UserDelType = yield delUserApi(user.payload)
+        yield put(userActions.delUserSuccess(response))
+    } catch (error) {
+        alert(error)
+        alert('진행 3: saga내부 delUser 실패  ')
+        yield put(userActions.delUserFailure(error))
+    }
 }
 export function* watchJoin() {
     // alert('진행 2.5: wahtchJoin')
@@ -99,6 +105,6 @@ export function* watchLogout() {
     yield takeLatest(userActions.logoutRequest, logout)
 }
 export function* watchDelUser() {
-    // alert('진행 2.5: wahtchLogout')
-    yield takeLatest(userActions.logoutRequest, delUser)
+    // alert('진행 2.5: watchDelUser')
+    yield takeLatest(userActions.delUserRequest, delUser)
 }

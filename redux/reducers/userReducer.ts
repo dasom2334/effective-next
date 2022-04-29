@@ -59,21 +59,19 @@ const userSlice = createSlice({
             localStorage.clear();
             window.location.href = '/'
         },
-        delUserRequest(state: UserState, payload){
+        delUserRequest(state: UserState, {payload}){
+            alert('진행 2: 리듀서 내부 ') 
             state.loading = true; 
         },
         delUserSuccess(state: UserState, {payload}){ 
             state.data = [...state.data, payload]
+            console.log(state)
             state.loading = false;
+            localStorage.clear();
         },
         delUserFailure(state: UserState, {payload}){ 
             state.data = payload;
             state.loading = false;
-        },
-        getUsersRequest(state: UserState, {payload}){ 
-            state.data = [...state.data, payload]
-            state.loading = false;
-            console.log(state.data);
         },
     }
 })

@@ -21,13 +21,15 @@ export default function GetUsers() {
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser");
     const user = JSON.parse(loginUser)
+    const token = user ? user.token : null
 
     const axiosConfig = {
       headers: {
-        Authorization: "Bearer " + user.token,
+        Authorization: "Bearer " +  token ,
       }
     };
-    
+    console.log(user)
+    console.log(axiosConfig)
     axios
       .get("http://localhost:5000/user/getUsers", axiosConfig)
       .then((res) => {
@@ -35,7 +37,7 @@ export default function GetUsers() {
         setData(res.data);
       })
       .catch((err) => {
-        alert(err);
+        // alert(err);
       });
   }, []);
 

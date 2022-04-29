@@ -50,7 +50,8 @@ export const loginApi = async (payload : {
             {headers}
         )
         alert('hi')
-        const loginUser = JSON.stringify(response.data)
+        const loginUser = JSON.stringify(response.data)        
+        localStorage.setItem("loginUser", loginUser)
         alert('진행 6 : 응답성공 ' + JSON.stringify(response.data))
         return response.data
     } catch (err) {
@@ -67,12 +68,23 @@ export const logoutApi = async () => {
         return err;
     }
 }
-export const delUserApi = async () => {
+export const delUserApi = async (payload : {
+    userid: string,
+    password: string
+}) => {
+    alert('진행 4 : API 진입 ')
+    console.log(payload);
+    console.log('hi');
+    alert('hi');
+
     try {
-        const response: AxiosResponse<unknown, UserType[]> = await axios.get(
+    const response: AxiosResponse<unknown, UserType[]> = await axios.post(
             `${SERVER}/user/delUser`,
+            payload,
             {headers}
         )
+        const loginUser = JSON.stringify(response.data)        
+        return response.data
     } catch (err) {
         return err;
     }
