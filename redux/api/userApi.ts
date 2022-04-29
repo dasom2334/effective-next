@@ -89,12 +89,29 @@ export const delUserApi = async (payload : {
         return err;
     }
 }
+export const editUserApi = async (payload : UserType) => {
+    alert('진행 4 : editUser API 진입 ')
+    console.log(payload);
+    try {
+    const response: AxiosResponse<unknown, UserType[]> = await axios.post(
+            `${SERVER}/user/editUser`,
+            payload,
+            {headers}
+        )
+        console.log('hello1')
+        return response.data
+    } catch (err) {
+        console.log(err)
+        return err;
+    }
+}
 export const getUsersApi = async () => {
     try {
         const response: AxiosResponse<unknown, UserType[]> = await axios.get(
             `${SERVER}/user/getUsers`,
             {headers}
         )
+        return response.data
     } catch (err) {
         return err;
     }

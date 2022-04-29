@@ -1,7 +1,7 @@
 import {PayloadAction} from '@reduxjs/toolkit'
 import {call, delay, put, takeLatest} from 'redux-saga/effects'
 import {userActions} from '../reducers/userReducer.ts';
-import {joinApi, loginApi, logoutApi, delUserApi} from '../api/userApi.ts'
+import {joinApi, loginApi, logoutApi, delUserApi, editUserApi} from '../api/userApi.ts'
 
 interface UserJoinType {
     type: string;
@@ -54,6 +54,18 @@ interface UserLoginSuccessType {
         address: string
     }
 }
+interface UserEditType {
+    type: string;
+    payload: {
+        userid: string,
+        password: string,
+        email: string,
+        name: string,
+        phone: string,
+        birth: string,
+        address: string
+    }
+}
 
 function* join(user : UserJoinType) {
     try {
@@ -92,6 +104,17 @@ function* delUser(user : UserDelType) {
         yield put(userActions.delUserFailure(error))
     }
 }
+function* editUser(user : UserEditType) {
+    try {
+        alert('진행 3: saga내부 editUser 성공  ')
+        const response: UserEditType = yield editUserApi(user.payload)
+        yield put(userActions.editUserSuccess(response))
+    } catch (error) {
+        alert(error)
+        alert('진행 3: saga내부 editUser 실패  ')
+        yield put(userActions.editUserFailure(error))
+    }
+}
 export function* watchJoin() {
     // alert('진행 2.5: wahtchJoin')
     yield takeLatest(userActions.joinRequest, join)
@@ -107,4 +130,8 @@ export function* watchLogout() {
 export function* watchDelUser() {
     // alert('진행 2.5: watchDelUser')
     yield takeLatest(userActions.delUserRequest, delUser)
+}
+export function* watchEditUser() {
+    // alert('진행 2.5: watchDelUser')
+    yield takeLatest(userActions.editUserRequest, editUser)
 }

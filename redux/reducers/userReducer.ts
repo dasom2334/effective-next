@@ -73,6 +73,19 @@ const userSlice = createSlice({
             state.data = payload;
             state.loading = false;
         },
+        editUserRequest(state: UserState, {payload}){
+            console.log(payload);
+            alert('진행 2: editUserRequest 리듀서 내부 ') 
+            state.loading = true; 
+        },
+        editUserSuccess(state: UserState, {payload}){ 
+            state.data = [...state.data, payload]
+            state.loading = false;
+        },
+        editUserFailure(state: UserState, {payload}){ 
+            state.data = payload;
+            state.loading = false;
+        },
     }
 })
 const { reducer, actions } = userSlice

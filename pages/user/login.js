@@ -24,10 +24,6 @@ const handleChange = e => {
         e.preventDefault()
         alert(' 진행 1: 회원가입 클릭 ');
         dispatch(userActions.loginRequest(user))
-        setUser({
-            userid: '',
-            password: '',
-        })
     }
   }>
       <table className={tableStyles.table}>
